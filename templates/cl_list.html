@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Photo Checklists{% endblock %}
+{% block content %}
+<ul>
+	{% for checklist in checklists %}
+	<li><a href="{{ checklist.dirname }}">{{ checklist.title }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

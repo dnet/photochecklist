@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ checklist.title }}{% endblock %}
+{% block content %}
+<ul>
+	{% for item in checklist.items %}
+	<li>{{ item }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

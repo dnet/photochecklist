@@ -28,6 +28,13 @@ class CheckListItem(object):
 	def get_dirname(self):
 		return self.UNSAFE_RE.sub(safe_dir, self.text)
 
+	def save_image(self, image):
+		imgdir = os.path.join(self.checklist.full_dir, self.get_dirname())
+		if not os.path.exists(imgdir):
+			os.mkdir(imgdir)
+		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)
+		image.save(os.path.join(imgdir, filename))
+
 class CheckList(object):
 	DIR = 'checklists'
 	FILE = 'checklist.txt'
@@ -41,7 +48,8 @@ class CheckList(object):
 		if not self.DIR_RE.match(dirname):
 			raise RuntimeError('Invalid directory name')
 		self.dirname = dirname
-		with codecs.open(os.path.join(self.DIR, dirname, self.FILE), 'r', 'utf-8') as f:
+		self.full_dir = os.path.join(self.DIR, dirname)
+		with codecs.open(os.path.join(self.full_dir, self.FILE), 'r', 'utf-8') as f:
 			self.title = f.readline().strip()
 			self.items = [CheckListItem(self, row.strip()) for row in f if len(row) > 2]
 
@@ -52,9 +60,5 @@ class CheckList(object):
 		raise RuntimeError('Invalid item text')
 
 	def save_image(self, itemtext, image):
-		subdir = self.get_item_by_text(itemtext).get_dirname()
-		imgdir = os.path.join(self.DIR, self.dirname, subdir)
-		if not os.path.exists(imgdir):
-			os.mkdir(imgdir)
-		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)
-		image.save(os.path.join(imgdir, filename))
+		item = self.get_item_by_text(itemtext)
+		item.save_image(image)

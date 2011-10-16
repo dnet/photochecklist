@@ -40,8 +40,5 @@ Event.observe(window, 'load', function() {
 	$$('#checklist a.itemtitle').each(function(link) {
 		link.id = 'cl_link' + (i++);
 		link.observe('click', linkClick);	
-		var ul = link.siblings().find(
-				function(sibling) { return sibling.tagName.toLowerCase() == 'ul'; });
-		link.parentNode.addClassName(ul.childElements().length ? 'done' : 'todo');
 	});
 });

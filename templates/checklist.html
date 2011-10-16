@@ -3,7 +3,7 @@
 {% block content %}
 <ul id="checklist">
 	{% for item in checklist.items %}
-	<li>
+	<li class="{{ 'done' if item.has_images() else 'todo' }}">
 		<a href="javascript:void" class="itemtitle">{{ item }}</a>
 		<ul>
 			{% for image in item.get_images() %}

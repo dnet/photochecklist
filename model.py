@@ -61,6 +61,12 @@ class CheckListItem(object):
 			return []
 		return imap(partial(CheckListImage, item=self), sorted(ls, key=jpg2num))
 
+	def has_images(self):
+		try:
+			return bool(os.listdir(self.get_imgdir()))
+		except OSError:
+			return False
+
 	def get_imgdir(self):
 		return os.path.join(self.checklist.full_dir, self.get_dirname())
 
@@ -92,6 +98,8 @@ class CheckList(object):
 		with codecs.open(os.path.join(self.full_dir, self.FILE), 'r', 'utf-8') as f:
 			self.title = f.readline().strip()
 			self.items = [CheckListItem(self, row.strip()) for row in f if len(row) > 2]
+		self.items.sort(key=CheckListItem.has_images)
+		self.items.reverse()
 
 	def get_item_by_text(self, text):
 		for item in self.items:

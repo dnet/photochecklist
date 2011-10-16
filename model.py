@@ -46,7 +46,7 @@ class CheckList(object):
 
 	@classmethod
 	def get_lists(cls):
-		return (CheckList(dirname) for dirname in sorted(os.listdir(cls.DIR)))
+		return imap(CheckList, sorted(os.listdir(cls.DIR)))
 	
 	def __init__(self, dirname):
 		if not self.DIR_RE.match(dirname):

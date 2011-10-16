@@ -83,7 +83,7 @@ class CheckList(object):
 	@classmethod
 	def get_lists(cls):
 		return imap(CheckList, sorted(os.listdir(cls.DIR)))
-	
+
 	def __init__(self, dirname):
 		if not self.DIR_RE.match(dirname):
 			raise RuntimeError('Invalid directory name')

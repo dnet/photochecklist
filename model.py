@@ -30,12 +30,13 @@ class CheckListImage(object):
 		self.item = item
 
 	def get_small_image(self):
-		image_fn = os.path.join(self.item.get_imgdir(), self.filename)
-		return get_sized_image(image_fn, self.SMALL_SIZE)
+		return get_sized_image(self.get_image_file_name(), self.SMALL_SIZE)
 
 	def get_big_image(self):
-		image_fn = os.path.join(self.item.get_imgdir(), self.filename)
-		return get_sized_image(image_fn, self.BIG_SIZE)
+		return get_sized_image(self.get_image_file_name(), self.BIG_SIZE)
+
+	def get_image_file_name(self):
+		return os.path.join(self.item.get_imgdir(), self.filename)
 
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')

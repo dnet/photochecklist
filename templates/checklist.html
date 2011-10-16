@@ -4,10 +4,14 @@
 <ul id="checklist">
 	{% for item in checklist.items %}
 	<li>
-		<a href="javascript:void">{{ item }}</a>
+		<a href="javascript:void" class="itemtitle">{{ item }}</a>
 		<ul>
 			{% for image in item.get_images() %}
-			<li>{{ image.filename }}</li>
+			<li>
+				<a href="{{ image.get_big_image() }}" rel="lightbox">
+					<img src="{{ image.get_small_image() }}"/>
+				</a>
+			</li>
 			{% endfor %}
 		</ul>
 	</li>

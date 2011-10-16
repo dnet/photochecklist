@@ -4,6 +4,7 @@ from __future__ import with_statement, unicode_literals
 from binascii import hexlify
 from itertools import imap
 from functools import partial
+from cache import get_sized_image
 import os
 import re
 import codecs
@@ -21,9 +22,20 @@ def get_last_file_in(directory):
 		return 0
 
 class CheckListImage(object):
+	SMALL_SIZE = b'64x48'
+	BIG_SIZE = b'640x480'
+
 	def __init__(self, filename, item):
 		self.filename = filename
 		self.item = item
+
+	def get_small_image(self):
+		image_fn = os.path.join(self.item.get_imgdir(), self.filename)
+		return get_sized_image(image_fn, self.SMALL_SIZE)
+
+	def get_big_image(self):
+		image_fn = os.path.join(self.item.get_imgdir(), self.filename)
+		return get_sized_image(image_fn, self.BIG_SIZE)
 
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')

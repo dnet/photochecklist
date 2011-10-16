@@ -16,7 +16,7 @@ function linkClick(evt) {
 
 Event.observe(window, 'load', function() {
 	var i = 0;
-	$$('#checklist a').each(function(link) {
+	$$('#checklist a.itemtitle').each(function(link) {
 		link.id = 'cl_link' + (i++);
 		link.observe('click', linkClick);	
 	});

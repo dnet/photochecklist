@@ -14,7 +14,15 @@ def cl_list():
 def checklist_page(checklist):
 	cl_obj = CheckList(checklist)
 	if request.method == 'POST':
-		cl_obj.save_image(request.form['item'], request.files['file'])
+		if 'delete' in request.form:
+			try:
+				image = int(request.form['delete']) - 1
+			except ValueError:
+				pass
+			else:
+				cl_obj.delete_image(request.form['item'], image)
+		else:
+			cl_obj.save_image(request.form['item'], request.files['file'])
 		return redirect(request.url)
 	else:
 		return render_template('checklist.html', checklist=cl_obj)

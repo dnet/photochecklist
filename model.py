@@ -35,6 +35,9 @@ class CheckListImage(object):
 	def get_big_image(self):
 		return get_sized_image(self.get_image_file_name(), self.BIG_SIZE)
 
+	def delete_from_disk(self):
+		os.remove(self.get_image_file_name())
+
 	def get_image_file_name(self):
 		return os.path.join(self.item.get_imgdir(), self.filename)
 
@@ -68,6 +71,10 @@ class CheckListItem(object):
 		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)
 		image.save(os.path.join(imgdir, filename))
 
+	def delete_image(self, image):
+		images = list(self.get_images())
+		images[image].delete_from_disk()
+
 class CheckList(object):
 	DIR = 'checklists'
 	FILE = 'checklist.txt'
@@ -95,3 +102,7 @@ class CheckList(object):
 	def save_image(self, itemtext, image):
 		item = self.get_item_by_text(itemtext)
 		item.save_image(image)
+
+	def delete_image(self, itemtext, image):
+		item = self.get_item_by_text(itemtext)
+		item.delete_image(image)

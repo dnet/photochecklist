@@ -18,8 +18,9 @@ def get_last_file_in(directory):
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')
 
-	def __init__(self, text):
+	def __init__(self, checklist, text):
 		self.text = text
+		self.checklist = checklist
 
 	def __unicode__(self):
 		return self.text
@@ -42,7 +43,7 @@ class CheckList(object):
 		self.dirname = dirname
 		with codecs.open(os.path.join(self.DIR, dirname, self.FILE), 'r', 'utf-8') as f:
 			self.title = f.readline().strip()
-			self.items = [CheckListItem(row.strip()) for row in f if len(row) > 2]
+			self.items = [CheckListItem(self, row.strip()) for row in f if len(row) > 2]
 
 	def get_item_by_text(self, text):
 		for item in self.items:

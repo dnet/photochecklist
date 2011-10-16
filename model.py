@@ -44,10 +44,14 @@ class CheckList(object):
 			self.title = f.readline().strip()
 			self.items = [CheckListItem(row.strip()) for row in f if len(row) > 2]
 
+	def get_item_by_text(self, text):
+		for item in self.items:
+			if item.text == text:
+				return item
+		raise RuntimeError('Invalid item text')
+
 	def save_image(self, itemtext, image):
-		if itemtext not in (unicode(i) for i in self.items):
-			raise RuntimeError('Invalid item text')
-		subdir = CheckListItem(itemtext).get_dirname()
+		subdir = self.get_item_by_text(itemtext).get_dirname()
 		imgdir = os.path.join(self.DIR, self.dirname, subdir)
 		if not os.path.exists(imgdir):
 			os.mkdir(imgdir)

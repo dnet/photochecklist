@@ -2,6 +2,7 @@
 
 from __future__ import with_statement, unicode_literals
 from binascii import hexlify, unhexlify
+from itertools import imap
 import os
 import re
 import codecs
@@ -9,9 +10,12 @@ import codecs
 def safe_dir(unsafe):
 	return '_{0}_'.format(hexlify(unsafe.group(0)))
 
+def jpg2num(jpg):
+	return int(jpg[:-4])
+
 def get_last_file_in(directory):
 	try:
-		return max(int(fn[:-4]) for fn in os.listdir(directory))
+		return max(imap(jpg2num, os.listdir(directory)))
 	except ValueError:
 		return 0
 

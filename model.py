@@ -19,6 +19,10 @@ def get_last_file_in(directory):
 	except ValueError:
 		return 0
 
+class CheckListImage(object):
+	def __init__(self, filename):
+		self.filename = filename
+
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')
 
@@ -32,6 +36,12 @@ class CheckListItem(object):
 	def get_dirname(self):
 		return self.UNSAFE_RE.sub(safe_dir, self.text)
 
+	def get_images(self):
+		try:
+			ls = os.listdir(self.get_imgdir())
+		except OSError:
+			return []
+		return imap(CheckListImage, sorted(ls, key=jpg2num))
 
 	def get_imgdir(self):
 		return os.path.join(self.checklist.full_dir, self.get_dirname())

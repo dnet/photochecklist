@@ -3,7 +3,14 @@
 {% block content %}
 <ul id="checklist">
 	{% for item in checklist.items %}
-	<li><a href="javascript:void">{{ item }}</a></li>
+	<li>
+		<a href="javascript:void">{{ item }}</a>
+		<ul>
+			{% for image in item.get_images() %}
+			<li>{{ image.filename }}</li>
+			{% endfor %}
+		</ul>
+	</li>
 	{% endfor %}
 </ul>
 {% endblock %}

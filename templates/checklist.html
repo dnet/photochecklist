@@ -8,7 +8,8 @@
 		<ul>
 			{% for image in item.get_images() %}
 			<li>
-				<a href="{{ image.get_big_image() }}" rel="lightbox">
+				<a href="{{ image.get_big_image() }}"
+					rel="lightbox[set{{ loop.index }}]" title="{{ item }}">
 					<img src="{{ image.get_small_image() }}"/>
 				</a>
 			</li>

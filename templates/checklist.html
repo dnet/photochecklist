@@ -5,6 +5,7 @@
 	{% for item in checklist.items %}
 	<li class="{{ 'done' if item.has_images() else 'todo' }}">
 		<a href="javascript:void" class="itemtitle">{{ item }}</a>
+		{% if item.has_images() %}
 		<ul>
 			{% for image in item.get_images() %}
 			<li>
@@ -15,6 +16,7 @@
 			</li>
 			{% endfor %}
 		</ul>
+		{% endif %}
 	</li>
 	{% endfor %}
 </ul>

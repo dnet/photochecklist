@@ -17,8 +17,8 @@ function linkClick(evt) {
 			'<input type="submit" value="Upload"/></form></div>'});
 		var ul = link.siblings().find(
 				function(sibling) { return sibling.tagName.toLowerCase() == 'ul'; });
-		var images = ul.childElements().map(Element.firstDescendant);
-		if (images.length) {
+		if (ul) {
+			var images = ul.childElements().map(Element.firstDescendant);
 			options = '';
 			for (var i = 0; i < images.length; i++) {
 				options += '<option>' + (i + 1) + '</option>';

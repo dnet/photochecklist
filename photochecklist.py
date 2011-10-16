@@ -11,7 +11,7 @@ def cl_list():
 	return render_template('cl_list.html', checklists=CheckList.get_lists())
 
 @app.route("/<checklist>", methods=['GET', 'POST'])
-def checklist(checklist):
+def checklist_page(checklist):
 	cl_obj = CheckList(checklist)
 	if request.method == 'POST':
 		cl_obj.save_image(request.form['item'], request.files['file'])

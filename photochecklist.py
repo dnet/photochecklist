@@ -28,4 +28,4 @@ def checklist_page(checklist):
 		return render_template('checklist.html', checklist=cl_obj)
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)

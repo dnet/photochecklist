@@ -1,0 +1,58 @@
+body {
+	background: #fff url('../images/bg.jpg') no-repeat fixed;
+	color: #000;
+	font-family: "Verdana", sans-serif;
+	font-size: 10pt;
+	margin: 0;
+}
+
+h1 {
+	background: rgba(0, 0, 0, 0.7);
+	color: white;
+	margin: 0;
+	padding: 8px;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+	font-size: 14pt;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #310;
+}
+
+div#content {
+	padding: 8px 0 24px 0;
+	margin: 24px auto 24px auto;
+	width: 860px;
+	overflow: auto;
+	background: rgba(255, 255, 255, 0.35);
+}
+
+ul ul li {
+	list-style: none;
+	padding-right: 8px;
+	float: left;
+}
+
+ul ul {
+	margin: 16px 0 16px 0;
+	padding: 0;
+}
+
+ul#checklist > li {
+	width: 360px;
+	float: left;
+	margin: 3px 10px 3px 40px;
+}
+
+li.todo {
+	list-style: url('../images/todo.png');
+}
+
+li.done {
+	list-style: url('../images/done.png');
+}

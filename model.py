@@ -3,6 +3,7 @@
 from __future__ import with_statement, unicode_literals
 from binascii import hexlify
 from itertools import imap
+from functools import partial
 import os
 import re
 import codecs
@@ -20,8 +21,9 @@ def get_last_file_in(directory):
 		return 0
 
 class CheckListImage(object):
-	def __init__(self, filename):
+	def __init__(self, filename, item):
 		self.filename = filename
+		self.item = item
 
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')
@@ -41,7 +43,7 @@ class CheckListItem(object):
 			ls = os.listdir(self.get_imgdir())
 		except OSError:
 			return []
-		return imap(CheckListImage, sorted(ls, key=jpg2num))
+		return imap(partial(CheckListImage, item=self), sorted(ls, key=jpg2num))
 
 	def get_imgdir(self):
 		return os.path.join(self.checklist.full_dir, self.get_dirname())

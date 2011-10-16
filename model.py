@@ -32,8 +32,12 @@ class CheckListItem(object):
 	def get_dirname(self):
 		return self.UNSAFE_RE.sub(safe_dir, self.text)
 
+
+	def get_imgdir(self):
+		return os.path.join(self.checklist.full_dir, self.get_dirname())
+
 	def save_image(self, image):
-		imgdir = os.path.join(self.checklist.full_dir, self.get_dirname())
+		imgdir = self.get_imgdir()
 		if not os.path.exists(imgdir):
 			os.mkdir(imgdir)
 		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)

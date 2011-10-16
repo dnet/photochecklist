@@ -22,7 +22,7 @@ def get_last_file_in(directory):
 		return 0
 
 class CheckListImage(object):
-	SMALL_SIZE = b'64x48'
+	SMALL_SIZE = b'128x96'
 	BIG_SIZE = b'640x480'
 
 	def __init__(self, filename, item):

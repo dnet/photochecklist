@@ -9,6 +9,12 @@ import codecs
 def safe_dir(unsafe):
 	return '_{0}_'.format(hexlify(unsafe.group(0)))
 
+def get_last_file_in(directory):
+	try:
+		return max(int(fn[:-4]) for fn in os.listdir(directory))
+	except ValueError:
+		return 0
+
 class CheckListItem(object):
 	UNSAFE_RE = re.compile(r'[^a-zA-Z\-\.0-9]+')
 
@@ -45,8 +51,5 @@ class CheckList(object):
 		imgdir = os.path.join(self.DIR, self.dirname, subdir)
 		if not os.path.exists(imgdir):
 			os.mkdir(imgdir)
-		try:
-			filename = '{0}.jpg'.format(max(int(fn[:-4]) for fn in os.listdir(imgdir)) + 1)
-		except ValueError:
-			filename = '1.jpg'
+		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)
 		image.save(os.path.join(imgdir, filename))

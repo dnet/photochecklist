@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import with_statement, unicode_literals
-from binascii import hexlify, unhexlify
+from binascii import hexlify
 from itertools import imap
 import os
 import re

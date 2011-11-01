@@ -75,6 +75,8 @@ class CheckListItem(object):
 		if not os.path.exists(imgdir):
 			os.mkdir(imgdir)
 		filename = '{0}.jpg'.format(get_last_file_in(imgdir) + 1)
+		if image.content_length == 0:
+			raise RuntimeError('Empty image file')
 		image.save(os.path.join(imgdir, filename))
 
 	def delete_image(self, image):
